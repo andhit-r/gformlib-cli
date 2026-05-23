@@ -21,11 +21,9 @@ If none of these are provided the command falls back to the
 ``GOOGLE_APPLICATION_CREDENTIALS`` environment variable.
 """
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated, Dict, Optional
 
 import typer
 from gformlib.exceptions import APIError, FormCreationError, FormUpdateError, GFormLibError
@@ -67,13 +65,13 @@ TokenOpt = Annotated[
 # ── Private helpers ───────────────────────────────────────────────────────────
 
 
-def _read_json(path: Path) -> dict[str, object]:
+def _read_json(path: Path) -> Dict[str, object]:
     """Read and parse a JSON file, exiting cleanly on errors."""
     if not path.exists():
         print_error(f"File not found: {path}")
         raise typer.Exit(code=1)
     try:
-        result: dict[str, object] = json.loads(path.read_text(encoding="utf-8"))
+        result: Dict[str, object] = json.loads(path.read_text(encoding="utf-8"))
         return result
     except json.JSONDecodeError as exc:
         print_error(f"Invalid JSON in '{path}': {exc}")

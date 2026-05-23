@@ -4,8 +4,6 @@ All user-visible output goes through this module so that formatting is
 consistent and easy to change in one place (DRY).
 """
 
-from __future__ import annotations
-
 from typing import Any, Dict, List
 
 import rich.box
