@@ -1,0 +1,18 @@
+# dockerignore
+.git
+.github
+.tox
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+dist/
+build/
+docs/_build/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+*.log
