@@ -6,11 +6,9 @@ run without any real credentials or network access.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-import pytest
 from gformlib import FormInfo
 from gformlib.exceptions import APIError, FormCreationError, FormUpdateError
 from typer.testing import CliRunner
@@ -111,9 +109,7 @@ class TestFormUpdate:
         )
         assert result.exit_code != 0
 
-    def test_invalid_json(
-        self, tmp_path: Path, sa_file: Path, mock_client: MagicMock
-    ) -> None:
+    def test_invalid_json(self, tmp_path: Path, sa_file: Path, mock_client: MagicMock) -> None:
         bad = tmp_path / "bad.json"
         bad.write_text("{broken", encoding="utf-8")
         with patch(_PATCH_GET_CLIENT, return_value=mock_client):
@@ -129,9 +125,7 @@ class TestFormUpdate:
         update_config_file: Path,
         sa_file: Path,
     ) -> None:
-        mock_client.update_form.side_effect = FormUpdateError(
-            "Update failed", form_id="form123"
-        )
+        mock_client.update_form.side_effect = FormUpdateError("Update failed", form_id="form123")
         with patch(_PATCH_GET_CLIENT, return_value=mock_client):
             result = runner.invoke(
                 app,

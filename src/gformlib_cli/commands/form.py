@@ -67,13 +67,14 @@ TokenOpt = Annotated[
 # ── Private helpers ───────────────────────────────────────────────────────────
 
 
-def _read_json(path: Path) -> dict:  # type: ignore[type-arg]
+def _read_json(path: Path) -> dict[str, object]:
     """Read and parse a JSON file, exiting cleanly on errors."""
     if not path.exists():
         print_error(f"File not found: {path}")
         raise typer.Exit(code=1)
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        result: dict[str, object] = json.loads(path.read_text(encoding="utf-8"))
+        return result
     except json.JSONDecodeError as exc:
         print_error(f"Invalid JSON in '{path}': {exc}")
         raise typer.Exit(code=1) from exc
@@ -84,9 +85,7 @@ def _read_json(path: Path) -> dict:  # type: ignore[type-arg]
 
 @app.command("create")
 def create(
-    config_file: Annotated[
-        Path, typer.Argument(help="JSON config file for the new form.")
-    ],
+    config_file: Annotated[Path, typer.Argument(help="JSON config file for the new form.")],
     service_account: SaOpt = None,
     credentials: CredsOpt = None,
     token_file: TokenOpt = None,
@@ -119,9 +118,7 @@ def create(
 @app.command("update")
 def update(
     form_id: Annotated[str, typer.Argument(help="ID of the form to update.")],
-    config_file: Annotated[
-        Path, typer.Argument(help="JSON config file with update data.")
-    ],
+    config_file: Annotated[Path, typer.Argument(help="JSON config file with update data.")],
     service_account: SaOpt = None,
     credentials: CredsOpt = None,
     token_file: TokenOpt = None,

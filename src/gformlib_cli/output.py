@@ -60,8 +60,7 @@ def print_responses(responses: List[Dict[str, Any]], form_id: str) -> None:
     """Render a list of form responses."""
     count = len(responses)
     console.print(
-        f"\n[bold cyan]{count}[/bold cyan] response(s) for form "
-        f"[bold]{form_id}[/bold]\n"
+        f"\n[bold cyan]{count}[/bold cyan] response(s) for form " f"[bold]{form_id}[/bold]\n"
     )
     for i, resp in enumerate(responses, 1):
         resp_id = resp.get("responseId", "unknown")
