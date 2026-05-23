@@ -93,8 +93,8 @@ def create(
     The config file must contain at minimum a ``"title"`` key.  Questions
     are defined under the ``"questions"`` key as a list of objects.
 
-    \b
-    Example config (form.json):
+    Example config (form.json)::
+
         {
           "title": "Customer Survey",
           "questions": [
@@ -126,8 +126,8 @@ def update(
     Supported keys: ``"title"``, ``"description"``, ``"add_questions"``.
     Only the supplied keys are changed; everything else is left untouched.
 
-    \b
-    Example config (update.json):
+    Example config (update.json)::
+
         {
           "title": "Revised Survey",
           "add_questions": [
